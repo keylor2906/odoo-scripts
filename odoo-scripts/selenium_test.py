@@ -19,6 +19,7 @@ class BasicFlow(object):
         self.driver.implicitly_wait(15)
         self.product = args.get('product')
         self.partner = args.get('partner')
+        self.name = args.get('name')
         self.driver.get(
             '%(server)s/'
             'login?db=%(db)s&'
@@ -410,8 +411,8 @@ class SaleTestAbas(BasicFlow):
             "$('a.o_app div:contains(Punto de Venta)').click()")
         time.sleep(5)
         driver.execute_script(
-            "$('div.o_kanban_record:contains(Tadeo) "
-            "button:contains(Reanudar)').click()")
+            "$('div.o_kanban_record:contains(%s) "
+            "button:contains(Reanudar)').click()" % self.name)
         driver.execute_script(
             "$('div.o_kanban_record:contains(Test Admin) "
             "button:contains(Nueva sesión)').click()")
@@ -473,8 +474,8 @@ class SaleTestAbas(BasicFlow):
             "$('div.header-button:contains(Confirmar)').click()")
         raw_input('Press Enter after the POS is closed')
         driver.execute_script(
-            "$('div.o_kanban_record:contains(Tadeo) "
-            "button:contains(Cerrar)').click()")
+            "$('div.o_kanban_record:contains(%s) "
+            "button:contains(Cerrar)').click()" % self.name)
         time.sleep(6)
         driver.execute_script(
             "$('button:contains(Validar y contabilizar asiento):"
@@ -824,7 +825,11 @@ class SaleTestAbas(BasicFlow):
               default='',
               prompt='Company',
               help='Company which the test is going  to run the test')
-def main(server, user, password, db, com):
+@click.option('-name',
+              default='',
+              prompt='Name',
+              help='Name of user who is going  to run the test')
+def main(server, user, password, db, com, name):
     classes_dict = {
         'apex': 'SaleTestApex',
         'lodi': 'SaleTestLodi',
@@ -854,7 +859,8 @@ def main(server, user, password, db, com):
         'password': password,
         'db': db,
         'partner': partner.get(com),
-        'product': product.get(com)
+        'product': product.get(com),
+        'name': name
     }
 
     lodi_list = ['go_to_sale_form', 'fill_form', 'go_to_pickings',
