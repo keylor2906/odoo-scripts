@@ -696,7 +696,7 @@ class SaleTestAbas(BasicFlow):
             "$('input[name=zip]').val('37187')")
         time.sleep(1)
         driver.execute_script(
-            "$('select[name=state_id] option:contains(Aguascalientes)')."
+            "$('select[name=state_id] option:contains(Nuevo León)')."
             "prop('selected', true)")
 
     def process_checkout(self):
@@ -756,7 +756,7 @@ class SaleTestAbas(BasicFlow):
             "prop('selected', true)")
 
     def go_to_sale_quotation(self):
-        """
+        """Method used to move us from main window to view for quotations
         """
         driver = self.driver
         time.sleep(10)
@@ -777,8 +777,8 @@ class SaleTestAbas(BasicFlow):
             "td[data-field=name]')[0].click()")
 
     def confirm_sale(self):
-        """
-        """
+        """Method to confirm the sale of the quotation created
+        by the client via website"""
         driver = self.driver
         time.sleep(6)
         driver.execute_script(
@@ -802,6 +802,192 @@ class SaleTestAbas(BasicFlow):
         driver.execute_script(
             "$('button:contains(Confirmar venta):"
             "not(.o_form_invisible)').click()")
+
+    def go_to_product_form(self):
+        """Method used to move us from main window to view for products
+        """
+        driver = self.driver
+        time.sleep(2)
+        driver.execute_script(
+            "$('a.o_app div:contains(Ventas)').click()")
+        time.sleep(5)
+        driver.execute_script(
+            "$('a.dropdown-toggle:contains(Ventas)').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('a.o_menu_entry_lvl_2:contains(Productos):"
+            "not(.oe_kanban_action)').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('button:contains(Crear)').click()")
+
+    def fill_product_form(self):
+        """Fill the form for a new product
+        """
+        driver = self.driver
+        time.sleep(2)
+        driver.execute_script(
+            "$('input[placeholder=\"Nombre del Producto\"]')"
+            ".val('Producto prueba')")
+        time.sleep(2)
+        driver.execute_script(
+            "$('select[name=type] option:contains(Producto Almacenable)')"
+            ".prop('selected', true)")
+        time.sleep(2)
+        driver.execute_script(
+            "$('input.o_form_radio[value=order]').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('tr:contains(Precio de venta) input').val('35.00')")
+        time.sleep(2)
+        driver.execute_script(
+            "$('tr:contains(Coste) input').val('17.50')")
+        time.sleep(2)
+        driver.execute_script(
+            "$('a:contains(Inventario)').click()")
+        time.sleep(1)
+        driver.execute_script(
+            "$('input[data-record-id=18]').click()")
+        time.sleep(1)
+        driver.execute_script(
+            "$('input[data-record-id=19]').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('a:contains(Contabilidad)').click()")
+        time.sleep(1)
+        driver.execute_script(
+            "$('tr:contains(Impuestos del Cliente) input')."
+            "val('16% IVA de Ventas').keydown()")
+        time.sleep(1)
+        driver.execute_script(
+            "$('li a:contains(16% IVA de Ventas):"
+            "not(:contains(Crear))').click()")
+        time.sleep(1)
+        driver.execute_script(
+            "$('tr:contains(Impuestos de Proveedor) input')."
+            "val('16% IVA de Compra').keydown()")
+        time.sleep(1)
+        driver.execute_script(
+            "$('li a:contains(16% IVA de Compra):"
+            "not(:contains(Crear))').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('button.o_form_button_save').click()")
+
+    def go_to_promotion_form(self):
+        """Method used to move us from main window to view for promotions
+        """
+        driver = self.driver
+        time.sleep(4)
+        driver.execute_script(
+            "$('a.o_app div:contains(Ventas)').click()")
+        time.sleep(5)
+        driver.execute_script(
+            "$('a.dropdown-toggle:contains(Configuración)').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('a.o_menu_entry_lvl_3:contains(Programa de promoción):"
+            "not(.oe_kanban_action)').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('button:contains(Crear)').click()")
+
+    def fill_promotion_form(self):
+        """Fill the form for a new promotion
+        """
+        driver = self.driver
+        time.sleep(2)
+        driver.execute_script(
+            "$('div:contains(Nombre del programa) "
+            "input.oe_title').val('Promoción prueba')")
+        time.sleep(2)
+        driver.execute_script(
+            "$('input[name=is_public_included]').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('input[value=code_needed]').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('tr:contains(Código de promoción) input')."
+            "val('PR0M0-C0D3')")
+        time.sleep(2)
+        driver.execute_script(
+            "$('td:contains(Producto de linea):not(:contains(Reference))')"
+            ".next().find('input').val('discount').keydown()")
+        time.sleep(1)
+        driver.execute_script(
+            "$('a:contains(discount):"
+            "not(:contains(Crear))').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('tr:contains(Aplicar descuento) input')"
+            ".val('25.00')")
+        time.sleep(2)
+        driver.execute_script(
+            "$('button.o_form_button_save').click()")
+
+    def go_to_delivery_method_form(self):
+        """Method used to move us from main window
+        to view for delivery method"""
+        driver = self.driver
+        time.sleep(4)
+        driver.execute_script(
+            "$('a.o_app div:contains(Ventas)').click()")
+        time.sleep(5)
+        driver.execute_script(
+            "$('a.dropdown-toggle:contains(Configuración)').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('a.o_menu_entry_lvl_3:contains(Métodos de Entrega):"
+            "not(.oe_kanban_action)').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('button:contains(Crear)').click()")
+
+    def fill_delivery_method_form(self):
+        """Fill the form for a new delivery method
+        """
+        driver = self.driver
+        time.sleep(5)
+        driver.execute_script(
+            "$('div:contains(Nombre) h1 input')."
+            "val('Entrega de Prueba')")
+        time.sleep(2)
+        driver.execute_script(
+            "$('tr:contains(Compañía de transporte) input')."
+            "val('VECO CAPITAL S.A. de C.V.').keydown()")
+        time.sleep(1)
+        driver.execute_script(
+            "$('li.ui-menu-item a')[0].click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('tr:contains(Precio fijo) input').val(99.99)")
+        time.sleep(1)
+        driver.execute_script(
+            "$('a:contains(Destino)').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('tr:contains(Países) input')."
+            "val('México').keydown()")
+        time.sleep(1)
+        driver.execute_script(
+            "$('a:contains(México):"
+            "not(:contains(Crear))').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('tr:contains(Estado) input')."
+            "val('Nuevo León').keydown()")
+        time.sleep(1)
+        driver.execute_script(
+            "$('a:contains(Nuevo León):"
+            "not(:contains(Crear))').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('button.o_form_button_save').click()")
+        time.sleep(2)
+        driver.execute_script(
+            "$('div.fa-globe').click()")
+
 
 
 @click.command()
@@ -873,8 +1059,12 @@ def main(server, user, password, db, com, name):
                       'go_to_sale_form', 'fill_form', 'create_invoice',
                       'go_to_pickings', 'validate_out',
                       'add_to_cart', 'fill_checkout_form', 'process_checkout',
-                      'go_to_sale_quotation', 'confirm_sale', 'create_invoice',
-                      'go_to_pickings', 'validate_out'],
+                      'go_to_sale_quotation', 'confirm_sale',
+                      'create_invoice', 'go_to_pickings', 'validate_out',
+                      'go_to_product_form', 'fill_product_form',
+                      'go_to_delivery_method_form',
+                      'fill_delivery_method_form',
+                      'go_to_promotion_form', 'fill_promotion_form'],
         'lodi': lodi_list,
         'apex': lodi_list,
         'exim': exim_list,
